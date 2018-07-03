@@ -4,9 +4,11 @@ var config = require('../../config')
 var util = require('../../utils/util.js')
 var facepp = {
   url: 'https://api-cn.faceplusplus.com/facepp/v3/detect',
+  beautify_url: 'https://api-cn.faceplusplus.com/facepp/beta/beautify',
   api_key: 'GV9wmU3MBIeOjnQqgn5qfcgJiZz5XGLl',
   api_secret: 'pzVrT9r7WfbioyDpGSUrB46kSrbLLPZM'
 };
+var filePath
 
 Page({
     data: {
@@ -103,7 +105,7 @@ Page({
             sourceType: ['album', 'camera'],
             success: function(res){
                 // util.showBusy('正在上传')
-                var filePath = res.tempFilePaths[0]
+                filePath = res.tempFilePaths[0]
                 
                 that.setData({
                   imgUrl: filePath,
@@ -192,7 +194,6 @@ Page({
                                     beauty = faceData.attributes["beauty"].female_score
                                   }
 
-                                  console.info(beauty)
                                   that.setData({
                                     beauty: beauty
                                   })
@@ -328,6 +329,31 @@ Page({
                 console.error(e)
             }
         })
+    },
+
+    beautify: function () {
+      var that = this
+
+      wx.uploadFile({
+        url: facepp.beautify_url,
+        filePath: filePath,
+        name: 'image_file',
+        formData: {
+          "api_key": facepp.api_key,
+          "api_secret": facepp.api_secret
+        },
+        success: function (res) {
+          if (res.statusCode == 200) {
+
+            var image_base64 = JSON.parse(res.data).result
+
+            that.setData({
+              imgUrl: "data:image/png;base64," + image_base64 
+            })
+
+          }
+        }
+      })
     },
 
     // 预览图片

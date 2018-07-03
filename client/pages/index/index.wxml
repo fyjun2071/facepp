@@ -31,6 +31,20 @@
         </view>
     </view>
 
+    <view class="uploader">
+        <view class="uploader-text" bindtap="beautify">
+            <text>美白磨皮</text>
+        </view>
+        <view class="uploader-container" wx:if="{{imgUrl_beautify}}">
+            <image
+                class="uploader-image"
+                src="{{imgUrl_beautify}}"
+                mode="aspectFit"
+                bindtap="previewImg"
+            ></image>
+        </view>
+    </view>
+
     <view class="uploader uploader-text" wx:if="{{errMsg}}">
         <text>{{errMsg}}</text>
     </view>
