@@ -1,0 +1,10 @@
+{
+	"miniprogramRoot": "./client",
+	"qcloudRoot": "./server",
+	"setting": {
+		"newFeature": true
+	},
+	"appid": "wx36ae1940e6da432f",
+	"projectname": "face-coder",
+	"condition": {}
+}
