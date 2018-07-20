@@ -1,5 +1,46 @@
-<!--index.wxml-->
+<view>
+  <image src="/images/collect.png" class="img-style" animation="{{animCollect}}" bindtap="collect"></image>
+  <image src="/images/transpond.png" class="img-style" animation="{{animTranspond}}" bindtap="transpond"></image>
+  <image src="/images/input.png" class="img-style" animation="{{animInput}}" bindtap="input"></image>
+  <!--
+  <image src="/images/plus.png" class="img-plus-style" animation="{{animPlus}}" bindtap="plus"></image>
+  -->
+  <image src="/images/plus.png" class="img-plus-style" animation="{{animPlus}}" bindtap="doUpload"></image>
+</view>
+
 <view class="container">
+  <view class="card">
+    <view class="result_panel">
+      <view class="result" wx:if="{{errMsg}}">
+        <text>{{errMsg}}</text>
+      </view>
+      <view class="result" wx:if="{{gender}}">
+        <text>性别：{{gender}}</text>
+      </view>
+      <view class="result" wx:if="{{age}}">
+        <text>年龄：{{age}}</text>
+      </view>
+      <view class="result" wx:if="{{beauty}}">
+        <text>颜值：{{beauty}}</text>
+      </view>
+      <view class="result" wx:if="{{emotionText}}">
+        <text>情绪：{{emotionText}}</text>
+      </view>
+      <view class="result" wx:if="{{health}}">
+        <text>健康：{{health}}\n</text>
+        <text>色斑：{{stain}}\n</text>
+        <text>青春痘：{{acne}}\n</text>
+        <text>黑眼圈：{{dark_circle}}</text>
+      </view>
+    </view>
+
+    <image mode="widthFix" src="{{imgUrl}}"></image>
+  </view>
+</view>
+
+
+
+
     <!-- 用户登录测试 -->
     <!--
     <view class="userinfo" bindtap="login">
@@ -18,9 +59,11 @@
 
     <!-- 上传图片测试 -->
     <view class="uploader">
+        <!--
         <view class="uploader-text" bindtap="doUpload">
             <text>选择靓照</text>
         </view>
+        -->
         <view class="uploader-container" wx:if="{{imgUrl}}">
             <image
                 class="uploader-image"
@@ -47,6 +90,7 @@
     </view>
     -->
 
+    <!--
     <view class="uploader uploader-text" wx:if="{{errMsg}}">
         <text>{{errMsg}}</text>
     </view>
@@ -68,4 +112,4 @@
         <text>青春痘：{{acne}}</text>
         <text>黑眼圈：{{dark_circle}}</text>
     </view>
-</view>
+     -->
