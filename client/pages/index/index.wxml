@@ -5,39 +5,70 @@
   <!--
   <image src="/images/plus.png" class="img-plus-style" animation="{{animPlus}}" bindtap="plus"></image>
   -->
-  <image src="/images/plus.png" class="img-plus-style" animation="{{animPlus}}" bindtap="doUpload"></image>
-</view>
-
-<view class="container">
-  <view class="card">
-    <view class="result_panel">
-      <view class="result" wx:if="{{errMsg}}">
-        <text>{{errMsg}}</text>
-      </view>
-      <view class="result" wx:if="{{gender}}">
-        <text>性别：{{gender}}</text>
-      </view>
-      <view class="result" wx:if="{{age}}">
-        <text>年龄：{{age}}</text>
-      </view>
-      <view class="result" wx:if="{{beauty}}">
-        <text>颜值：{{beauty}}</text>
-      </view>
-      <view class="result" wx:if="{{emotionText}}">
-        <text>情绪：{{emotionText}}</text>
-      </view>
-      <view class="result" wx:if="{{health}}">
-        <text>健康：{{health}}\n</text>
-        <text>色斑：{{stain}}\n</text>
-        <text>青春痘：{{acne}}\n</text>
-        <text>黑眼圈：{{dark_circle}}</text>
-      </view>
-    </view>
-
-    <image mode="widthFix" src="{{imgUrl}}"></image>
+  <view catchtap="doUpload">
+    <image src="/images/plus.png" class="img-plus-style" animation="{{animPlus}}" catchlongpress="plus"></image>
   </view>
 </view>
 
+<view class='unpopping' bindtap='unpopping'></view>
+
+<view class="container">
+  <view class="card">
+    <image class='photo' mode="widthFix" src="{{imgUrl}}"></image>
+
+    <view class='bottom_panel'>
+      <view class='bottom_result_panel'>
+        <view class='bottom_result_panel_column'>
+          <view class="bottom_result" wx:if="{{gender}}">
+            <text>性别：{{gender}}</text>
+          </view>
+          <view class="bottom_result" wx:if="{{age}}">
+            <text>年龄：{{age}}</text>
+          </view>
+          <view class="bottom_result" wx:if="{{beauty}}">
+            <text>颜值：{{beauty}}</text>
+          </view>
+          <view class="bottom_result" wx:if="{{emotionText}}">
+            <text>情绪：{{emotionText}}</text>
+          </view>
+        </view>
+        <view class="bottom_result" wx:if="{{health}}">
+          <text>健康：{{health}}\n</text>
+          <text>色斑：{{stain}}\n</text>
+          <text>青春痘：{{acne}}\n</text>
+          <text>黑眼圈：{{dark_circle}}</text>
+        </view>
+        <image class="qrcode" mode="widthFix" src="/images/qrcode.jpg"></image>
+      </view>
+    </view>
+
+  </view>
+
+  <view class="result_panel">
+    <view class="result" wx:if="{{errMsg}}">
+      <text>{{errMsg}}</text>
+    </view>
+    <view class="result" wx:if="{{gender}}">
+      <text>性别：{{gender}}</text>
+    </view>
+    <view class="result" wx:if="{{age}}">
+      <text>年龄：{{age}}</text>
+    </view>
+    <view class="result" wx:if="{{beauty}}">
+      <text>颜值：{{beauty}}</text>
+    </view>
+    <view class="result" wx:if="{{emotionText}}">
+      <text>情绪：{{emotionText}}</text>
+    </view>
+    <view class="result" wx:if="{{health}}">
+      <text>健康：{{health}}\n</text>
+      <text>色斑：{{stain}}\n</text>
+      <text>青春痘：{{acne}}\n</text>
+      <text>黑眼圈：{{dark_circle}}</text>
+    </view>
+  </view>
+
+</view>
 
 
 
@@ -58,12 +89,12 @@
 
 
     <!-- 上传图片测试 -->
+    <!--
     <view class="uploader">
-        <!--
         <view class="uploader-text" bindtap="doUpload">
             <text>选择靓照</text>
         </view>
-        -->
+        
         <view class="uploader-container" wx:if="{{imgUrl}}">
             <image
                 class="uploader-image"
@@ -73,6 +104,7 @@
             ></image>
         </view>
     </view>
+    -->
 
     <!--
     <view class="uploader">

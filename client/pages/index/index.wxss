@@ -1,3 +1,9 @@
+page {
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+  background-color: #F6F6F6;
+}
+
 .img-plus-style {
   height: 120rpx;
   width: 120rpx;
@@ -13,8 +19,8 @@ image.img-plus-style  {
 }
  
 .img-style {
-  height: 150rpx;
-  width: 150rpx;
+  height: 120rpx;
+  width: 120rpx;
   position: fixed;
   bottom: 200rpx;
   right: 100rpx;
@@ -22,41 +28,98 @@ image.img-plus-style  {
   z-index: 100;
 }
 
-.container{
+.card_panel {
   margin-top: 30rpx;
   margin-bottom: 30rpx;
   width: 100%;
   height: 100%;
 }
 
-.card {
-  position: absolute;
-  width: 90%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+.card, .card .photo {
+  border-radius: 10px;
 }
 
-.card image {
+.card {
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0px 0px 5px 3px #ccc;
+}
+
+.card .photo {
   display: block;
   width: 100%;
-  border-radius: 6px;
-  box-shadow: 0px 0px 10px 3px #ccc;
+  z-index: 10;
+  box-shadow:0px 2px 1px #ccc;
 }
 
 .result_panel {
   position: absolute;
-  top: 50rpx;
-  left: 50rpx;
+  top: 60rpx;
+  left: 80rpx;
+  z-index: 80;
 }
 
 .result {
   color: white;
   margin-top: 10rpx;
   text-shadow: 0px 0px 5px red;
-  font-size: 40rpx;
+  font-size: 35rpx;
 }
 
 .result text {
   margin-top: 10rpx;
+}
+
+.unpopping {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 90;
+}
+
+.bottom_panel {
+  width: 100%;
+  height: 200rpx;
+  background-color: #FFF;
+  border-radius: 0px 0px 10px 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bottom_result_panel {
+  width: 90%;
+  height: 90%;
+  flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 30rpx;
+}
+
+.bottom_result_panel .bottom_result text {
+  display: block;
+  margin-bottom: 5rpx;
+}
+
+.bottom_result_panel_column {
+  display: flex;
+  flex-direction: column;
+}
+
+.qrcode {
+  width: 160rpx;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.show {
+  display: block;
+}
+
+.hidden {
+  display: none;
 }
