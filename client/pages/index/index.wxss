@@ -45,31 +45,35 @@ image.img-plus-style  {
   flex-direction: column;
   justify-content: center;
   box-shadow: 0px 0px 5px 3px #ccc;
+  z-index: 10;
 }
 
 .card .photo {
   display: block;
   width: 100%;
   z-index: 10;
-  box-shadow:0px 2px 1px #ccc;
+  box-shadow: 0px 2px 1px #ccc;
 }
 
 .result_panel {
   position: absolute;
   top: 60rpx;
-  left: 80rpx;
+  left: 60rpx;
   z-index: 80;
 }
 
 .result {
   color: white;
-  margin-top: 10rpx;
   text-shadow: 0px 0px 5px red;
-  font-size: 35rpx;
+  font-size: 30rpx;
 }
 
 .result text {
-  margin-top: 10rpx;
+  display: block;
+}
+
+.result, .result text {
+  margin-bottom: 5rpx;
 }
 
 .unpopping {
@@ -80,11 +84,14 @@ image.img-plus-style  {
 }
 
 .bottom_panel {
-  width: 100%;
-  height: 200rpx;
+  width: 95%;
+  height: 210rpx;
+  margin-top: -10rpx;
+  padding-top: 10rpx;
   background-color: #FFF;
   border-radius: 0px 0px 10px 10px;
-
+  box-shadow: 0px 0px 5px 3px #ccc;
+  z-index: 5;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -96,18 +103,21 @@ image.img-plus-style  {
   flex-wrap: wrap;
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: space-between;
-  font-size: 30rpx;
 }
 
 .bottom_result_panel .bottom_result text {
+  font-size: 30rpx;
   display: block;
-  margin-bottom: 5rpx;
+  opacity: 0.9;
 }
 
 .bottom_result_panel_column {
+  height: 80%;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .qrcode {

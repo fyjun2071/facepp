@@ -12,6 +12,7 @@ var filePath
 Page({
 
   data: {
+    unit: 0,  // rpx * unit = px
 
     isPopping: false,//是否已经弹出
     animPlus: {},//旋转动画
@@ -19,9 +20,14 @@ Page({
     animTranspond: {},//item位移,透明度
     animInput: {},//item位移,透明度
 
+    bottomPanelSlide: false,
+
     imgUrl: "/images/demo.jpg",
     imgWidth: null,
     imgHeight: null,
+
+    touchStartTime: 0,  // 触摸开始时间
+    touchEndTime: 0,    // 触摸结束时间
   },
 
 
@@ -29,13 +35,13 @@ Page({
   plus: function () {
     if (this.data.isPopping) {
       //缩回动画
-      this.popp();
+      this.takeback();
       this.setData({
         isPopping: false
       })
-    } else if (!this.data.isPopping) {
+    } else {
       //弹出动画
-      this.takeback();
+      this.popp();
       this.setData({
         isPopping: true
       })
@@ -55,19 +61,19 @@ Page({
   popp: function () {
     //plus顺时针旋转
     var animationPlus = wx.createAnimation({
-      duration: 500,
+      duration: 300,
       timingFunction: 'ease-out'
     })
     var animationcollect = wx.createAnimation({
-      duration: 500,
+      duration: 300,
       timingFunction: 'ease-out'
     })
     var animationTranspond = wx.createAnimation({
-      duration: 500,
+      duration: 300,
       timingFunction: 'ease-out'
     })
     var animationInput = wx.createAnimation({
-      duration: 500,
+      duration: 300,
       timingFunction: 'ease-out'
     })
     animationPlus.rotateZ(180).step();
@@ -85,19 +91,19 @@ Page({
   takeback: function () {
     //plus逆时针旋转
     var animationPlus = wx.createAnimation({
-      duration: 500,
+      duration: 300,
       timingFunction: 'ease-out'
     })
     var animationcollect = wx.createAnimation({
-      duration: 500,
+      duration: 300,
       timingFunction: 'ease-out'
     })
     var animationTranspond = wx.createAnimation({
-      duration: 500,
+      duration: 300,
       timingFunction: 'ease-out'
     })
     var animationInput = wx.createAnimation({
-      duration: 500,
+      duration: 300,
       timingFunction: 'ease-out'
     })
     animationPlus.rotateZ(0).step();
@@ -114,13 +120,108 @@ Page({
 
   // 点空白处缩回
   unpopping: function () {
-    if (!this.data.isPopping) {
+    if (this.data.isPopping) {
       //缩回动画
       this.takeback();
       this.setData({
-        isPopping: true
+        isPopping: false
       })
     }
+  },
+
+  // 按钮触摸开始触发的事件 
+  touchStart: function(e) { 
+    this.touchStartTime = e.timeStamp
+
+    var animationPlus = wx.createAnimation({
+      duration: 100,
+      timingFunction: 'ease-out'
+    })
+    animationPlus.scale(1.2, 1.2).step();
+    this.setData({
+      animPlus: animationPlus.export(),
+    })
+  },
+  
+  // 按钮触摸结束触发的事件 
+  touchEnd: function(e) { 
+    this.touchEndTime = e.timeStamp
+
+    var animationPlus = wx.createAnimation({
+      duration: 100,
+      timingFunction: 'ease-out'
+    })
+    animationPlus.scale(1, 1).step();
+    this.setData({
+      animPlus: animationPlus.export(),
+    })
+  },
+
+  /// 单击、双击 
+  multipleTap: function (e) {
+    var that = this 
+    // 控制点击事件在350ms内触发，加这层判断是为了防止长按时会触发点击事件 
+    if (that.touchEndTime - that.touchStartTime < 350) { 
+      // 当前点击的时间 
+      var currentTime = e.timeStamp 
+      var lastTapTime = that.lastTapTime 
+      // 更新最后一次点击时间 
+      that.lastTapTime = currentTime 
+      // 如果两次点击时间在300毫秒内，则认为是双击事件 
+      if (currentTime - lastTapTime < 300) { 
+        // 成功触发双击事件时，取消单击事件的执行 
+        clearTimeout(that.lastTapTimeoutFunc); 
+
+        that.doBottomPanelSlide(that) 
+      } else { 
+        // 单击事件延时300毫秒执行，这和最初的浏览器的点击300ms延时有点像。 
+        that.lastTapTimeoutFunc = setTimeout(function () { 
+
+        that.doUpload() 
+        }, 300); 
+      } 
+    } 
+  },
+
+  bottomPanelSlide: function() {
+    this.doBottomPanelSlide(this) 
+  },
+
+  doBottomPanelSlide: function(that) {
+    var bottomPanelSlide = wx.createAnimation({
+      duration: 300,
+      timingFunction: 'ease-out'
+    })
+
+    var resultPanelSlide = wx.createAnimation({
+      duration: 100,
+      timingFunction: 'ease-out'
+    })
+
+    if (that.data.bottomPanelSlide) {
+      // 滑下
+      bottomPanelSlide.translateY(0).step()
+      // 淡出
+      resultPanelSlide.scale(1.05, 1.05).opacity(0).step()
+      resultPanelSlide.scale(1, 1).step()
+      that.setData({
+        bottomPanelSlide: false,
+        animBottomPanel: bottomPanelSlide.export(),
+        animResultPanel: resultPanelSlide.export(),
+      })
+    } else {
+      // 滑上
+      bottomPanelSlide.translateY(-210 * that.data.unit).step()
+      // 淡入
+      resultPanelSlide.scale(1.05, 1.05).opacity(1).step()
+      resultPanelSlide.scale(1, 1).step()
+      that.setData({
+        bottomPanelSlide: true,
+        animBottomPanel: bottomPanelSlide.export(),
+        animResultPanel: resultPanelSlide.export(),
+      })
+    }
+
   },
 
   detect: function (filePath) {
@@ -153,7 +254,6 @@ Page({
         "return_attributes": "gender"
       },
       success: function (res) {
-        console.info(res)
         if (res.statusCode == 200) {
 
           var faceData = JSON.parse(res.data).faces
@@ -161,6 +261,7 @@ Page({
             that.setData({
               errMsg: "异次元生物"
             })
+            
             return
           } else {
             that.setData({
@@ -351,7 +452,7 @@ Page({
 
     wx.uploadFile({
       url: facepp.beautify_url,
-      filePath: filePath,
+      filePath: that.data.imgUrl,
       name: 'image_file',
       formData: {
         "api_key": facepp.api_key,
@@ -425,20 +526,45 @@ Page({
 
       },
       fail: function (e) {
-        console.error(e)
+        
       }
     })
   },
 
   onLoad: function (options) {
     // 生命周期函数--监听页面加载
+    var res = wx.getSystemInfoSync()
+    this.setData({
+      unit: res.screenWidth / 750
+    })
+
+    var anim = wx.createAnimation({
+      timingFunction: 'step-start'
+    })
+
+    anim.translateY(-210 * this.data.unit).step()
+    this.setData({
+      bottomPanelSlide: true,
+      animBottomPanel: anim.export(),
+    })
   },
   onReady: function () {
     // 生命周期函数--监听页面初次渲染完成
-    this.detect(this.data.imgUrl)
+    // this.detect(this.data.imgUrl)
+    this.setData({
+      gender: "女",
+      age: 29,
+      beauty: 79.228,
+      emotionText: "高兴",
+      health: 71.157,
+      stain: 2.453,
+      acne: 1.934,
+      dark_circle: 5.737
+    })
   },
   onShow: function () {
     // 生命周期函数--监听页面显示
+    
   },
   onHide: function () {
     // 生命周期函数--监听页面隐藏
@@ -452,11 +578,11 @@ Page({
   onReachBottom: function () {
     // 页面上拉触底事件的处理函数
   },
-  onShareAppMessage: function () {
+  onShareAppMessage: function (res) {
     // 用户点击右上角分享
     return {
-      title: '颜值策策策', // 分享标题
-      desc: 'desc', // 分享描述
+      title: '颜吉忑忑忑', // 分享标题
+      desc: '', // 分享描述
       path: '/pages/index/index' // 分享路径
     }
   },
