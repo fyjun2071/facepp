@@ -7,14 +7,13 @@
 
 </view>
 
+<!--
 <view class='unpopping' bindtap='unpopping'></view>
+-->
 
 <view class="container">
   <view class="card">
     <image class='photo' mode="widthFix" src="{{imgUrl}}"></image>
-
-    
-
   </view>
   <view class='bottom_panel' animation="{{animBottomPanel}}">
       <view class='bottom_result_panel'>

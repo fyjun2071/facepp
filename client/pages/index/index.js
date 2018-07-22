@@ -553,13 +553,13 @@ Page({
     // this.detect(this.data.imgUrl)
     this.setData({
       gender: "女",
-      age: 29,
-      beauty: 79.228,
+      age: 31,
+      beauty: 90.655,
       emotionText: "高兴",
-      health: 71.157,
-      stain: 2.453,
-      acne: 1.934,
-      dark_circle: 5.737
+      health: 75.631,
+      stain: 10.465,
+      acne: 2.852,
+      dark_circle: 4.315
     })
   },
   onShow: function () {
